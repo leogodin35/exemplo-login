@@ -7,6 +7,10 @@
   <title>The HTML5 Herald</title>
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
+  <!-- Google: Specify your app's client ID -->
+  <meta name="google-signin-client_id" content="181578673706-pup0aqvas1sbeme4qk5dofu5la9en00c.apps.googleusercontent.com">
+
+
 
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
@@ -14,6 +18,38 @@
 </head>
 
 <body>
+
+  <!-- Load the Google Platform Library -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
   <h1>Minha Página</h1>
+
+  <!-- Botão Login do Google -->
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <br />
+    <!-- Botão Logout do Google -->
+    <a href="#" onclick="signOut();">Logout</a>
+    <br />
+
+
+  <script>
+    // Login Google:
+    function onSignIn(googleUser) {
+  	var profile = googleUser.getBasicProfile();
+  	console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  	console.log('Name: ' + profile.getName());
+  	console.log('Image URL: ' + profile.getImageUrl());
+  	console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
+  </script>
+
+
 </body>
 </html>
